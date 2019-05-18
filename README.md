@@ -1,10 +1,11 @@
 # Front end take home challenge
 
-1. [Overview](#overview)
-2. [How to work on this challenge](#how-to-work-on-this-challenge)
-2. [Time](#time)
-3. [Current code](#current-code)
-4. [Task](#task)
+- [Front end take home challenge](#front-end-take-home-challenge)
+  - [Overview](#overview)
+  - [How to work on this challenge](#how-to-work-on-this-challenge)
+  - [Time](#time)
+  - [Current code](#current-code)
+  - [Task](#task)
 
 ## Overview
 
