@@ -27,16 +27,16 @@ class Profile extends Component {
     name: this.props.profile.name,
     phone: this.props.profile.phone,
     email: this.props.profile.email,
-    gender: this.props.profile.gender,
-    nameIsValid: null,
-    phoneIsValid: null,
-    emailIsValid: null,
-    genderIsValid: "unspecified",
+    gender: this.props.profile.gender || "unspecified",
+    nameIsValid: true,
+    phoneIsValid: true,
+    emailIsValid: true,
+    genderIsValid: true,
     formIsValid: null,
     emptyFields: []
   };
 
-  handleFormSubmit = (event) => {
+  handleFormSubmit = event => {
     event.preventDefault();
 
     const { name, phone, email, gender } = this.state;
@@ -45,31 +45,38 @@ class Profile extends Component {
     const emailIsValid = !!email;
     const genderIsValid = !!gender;
 
-    const formIsValid = (nameIsValid && phoneIsValid && emailIsValid && genderIsValid);
+    const formIsValid =
+      nameIsValid && phoneIsValid && emailIsValid && genderIsValid;
+
+    const emptyFields = [];
+
+    if (!formIsValid) {
+      !nameIsValid && emptyFields.push("name");
+      !phoneIsValid && emptyFields.push("phone");
+      !emailIsValid && emptyFields.push("email");
+      !genderIsValid && emptyFields.push("gender");
+    }
 
     this.setState({
       nameIsValid,
       phoneIsValid,
       emailIsValid,
       genderIsValid,
-      formIsValid
+      formIsValid,
+      emptyFields
     });
-  }
+  };
 
-  handleChange = (e) => {
-    const targetName = e.target.name;
-    const targetValue = e.target.value;
-
+  handleChange = e => {
     this.setState({
-      [targetName]: targetValue,
-      [`${targetName}IsValid`]: !!targetValue
+      [e.target.name]: e.target.value
     });
-  }
+  };
 
   render() {
+    console.log(this.state);
     return (
       <div className="app">
-
         <h1>{this.props.name}</h1>
 
         <form onSubmit={this.handleFormSubmit}>
@@ -111,12 +118,12 @@ class Profile extends Component {
           </div>
 
           {this.state.formIsValid !== null && (
-            <FormMessage 
-              isValid={this.state.formIsValid} 
-              emptyFields={}/>
+            <FormMessage
+              isValid={this.state.formIsValid}
+              emptyFields={this.state.emptyFields}
+            />
           )}
         </form>
-
       </div>
     );
   }

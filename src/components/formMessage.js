@@ -25,11 +25,7 @@ const FormMessage = props => {
 };
 
 function generateInvalidMessage(emptyFields) {
-  const emptyFieldNames = emptyFields.map(element => element.name);
-
-  return capitalizeFirstLetter(
-    `${emptyFieldNames.join(", ")} can not be blank`
-  );
+  return capitalizeFirstLetter(`${emptyFields.join(", ")} can not be blank`);
 }
 
 function capitalizeFirstLetter(string) {
