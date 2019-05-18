@@ -22,86 +22,63 @@ const options = [
   }
 ];
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 class Profile extends Component {
-  constructor() {
-    super();
+  state = {
+    name: this.props.profile.name,
+    phone: this.props.profile.phone,
+    email: this.props.profile.email,
+    gender: this.props.profile.gender,
+    nameIsValid: null,
+    phoneIsValid: null,
+    emailIsValid: null,
+    genderIsValid: "unspecified",
+    formIsValid: null,
+    emptyFields: []
+  };
 
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.formMessageRef = React.createRef();
-  }
-
-  removeInvalidClasses(requiredFields) {
-    requiredFields.forEach(element => {
-      element.classList.remove("profile-form__field--invalid");
-    });
-
-    this.formMessageRef.current.innerHTML = "";
-    this.formMessageRef.current.classList.remove(
-      "profile-form__message--invalid"
-    );
-  }
-
-  addInvalidClassesAndValidationMessage(emptyFields) {
-    const emptyFieldNames = emptyFields.map(element => element.name);
-
-    this.formMessageRef.current.classList.add("profile-form__message--invalid");
-    this.formMessageRef.current.innerHTML = capitalizeFirstLetter(
-      `${emptyFieldNames.join(", ")} can not be blank`
-    );
-  }
-
-  showFormSuccess() {
-    this.formMessageRef.current.innerHTML = "Form submitted!";
-  }
-
-  handleFormSubmit(event) {
+  handleFormSubmit = (event) => {
     event.preventDefault();
 
-    const requiredFields = [
-      event.target.name,
-      event.target.gender,
-      event.target.email,
-      event.target.phone
-    ];
+    const { name, phone, email, gender } = this.state;
+    const nameIsValid = !!name;
+    const phoneIsValid = !!phone;
+    const emailIsValid = !!email;
+    const genderIsValid = !!gender;
 
-    const emptyFields = requiredFields.filter(
-      element => !Boolean(element.value)
-    );
+    const formIsValid = (nameIsValid && phoneIsValid && emailIsValid && genderIsValid);
 
-    this.removeInvalidClasses(requiredFields);
+    this.setState({
+      nameIsValid,
+      phoneIsValid,
+      emailIsValid,
+      genderIsValid,
+      formIsValid
+    });
+  }
 
-    if (emptyFields.length) {
-      this.addInvalidClassesAndValidationMessage(emptyFields);
+  handleChange = (e) => {
+    const targetName = e.target.name;
+    const targetValue = e.target.value;
 
-      emptyFields.forEach(element => {
-        element.classList.add("profile-form__field--invalid");
-      });
-    } else {
-      this.showFormSuccess();
-
-      console.log({
-        name: event.target.name.value,
-        gender: event.target.gender.value,
-        email: event.target.email.value,
-        phone: event.target.phone.value
-      });
-    }
+    this.setState({
+      [targetName]: targetValue,
+      [`${targetName}IsValid`]: !!targetValue
+    });
   }
 
   render() {
     return (
       <div className="app">
+
         <h1>{this.props.name}</h1>
+
         <form onSubmit={this.handleFormSubmit}>
           <LabelInputItem
             labelText="Name:"
             inputValue={this.props.profile.name}
             inputName="name"
-            onChange={() => {}}
+            isValid={this.state.nameIsValid}
+            onChange={this.handleChange}
           />
 
           <LabelOptionItem
@@ -109,31 +86,37 @@ class Profile extends Component {
             selectName="gender"
             selectValue={this.props.profile.gender}
             options={options}
-            onChange={() => {}}
+            isValid={this.state.genderIsValid}
+            onChange={this.handleChange}
           />
 
           <LabelInputItem
             labelText="Email:"
             inputValue={this.props.profile.email}
             inputName="email"
-            onChange={() => {}}
+            isValid={this.state.emailIsValid}
+            onChange={this.handleChange}
           />
 
           <LabelInputItem
             labelText="Phone:"
             inputValue={this.props.profile.phone}
             inputName="phone"
-            onChange={() => {}}
+            isValid={this.state.phoneIsValid}
+            onChange={this.handleChange}
           />
 
           <div className="profile-form__row">
             <input type="submit" value="Save" />
           </div>
 
-          <div className="profile-form__row">
-            <span ref={this.formMessageRef} className="profile-form__message" />
-          </div>
+          {this.state.formIsValid !== null && (
+            <FormMessage 
+              isValid={this.state.formIsValid} 
+              emptyFields={}/>
+          )}
         </form>
+
       </div>
     );
   }

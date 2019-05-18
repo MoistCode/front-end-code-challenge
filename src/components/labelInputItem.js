@@ -28,7 +28,7 @@ LabelInputItem.defaultProps = {
   inputValue: "",
   inputName: "",
   onChange: noop,
-  isValid: false
+  isValid: true
 };
 
 LabelInputItem.propTypes = {

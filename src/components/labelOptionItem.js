@@ -43,7 +43,7 @@ LabelOptionItem.defaultProps = {
   selectName: "",
   options: [],
   onChange: noop,
-  isValid: false
+  isValid: true
 };
 
 LabelOptionItem.propTypes = {
