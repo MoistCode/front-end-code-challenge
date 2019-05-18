@@ -5,6 +5,7 @@ import noop from "../utils/noop";
 const LabelInputItem = props => {
   const { labelText, inputValue, inputName, onChange, isValid } = props;
 
+  // Handles adding/removing it's own classname(s)
   const validityClassName = `profile-form__field${
     isValid ? "" : " profile-form__field--invalid"
   }`;

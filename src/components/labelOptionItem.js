@@ -12,6 +12,7 @@ const LabelOptionItem = props => {
     isValid
   } = props;
 
+  // Handles adding/removing it's own classname(s)
   const validityClassName = `profile-form__field profile-form__select${
     isValid ? "" : " profile-form__field--invalid"
   }`;

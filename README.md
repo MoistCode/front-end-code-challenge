@@ -6,8 +6,6 @@
   - [Time](#time)
   - [Current code](#current-code)
   - [Task](#task)
-  - [Process](#process)
-  - [Challenges](#challenges)
 
 ## Overview
 
@@ -44,18 +42,3 @@ Below are some helpful notes:
 * When documenting what you did and what you'd do next, try to write the reasons for your choices so that we can follow your thought process.
 * Using only controlled inputs for the profile form will require you to move the form state from the DOM to the profile form.
 * If you are able to complete everything in one hour, running your code should be functionally identical to the original project.
-
-## Process
-* Since we're using controlled components; the flow should be:
-  1. Child renders data via props
-  2. Changes call handler in parent
-  3. Handler changes parent state
-  4. Parent passes down state data via props to children
-* Broke out components that handle inputs and options to clean up profile component into `LabelInputItem` and `LabelOptionItem` respectively
-* Since the options are static, I took them out of the component to prevent the array from constantly being re-created
-* Added `noop`, a no operation function, into utils to prevent recreating the function and for use in default props
-* Broke out the form message into it's own component `FormMessage` with the option to indicate whether or not it should portray validity or invalidity.
-
-## Challenges
-* What is a controlled component?
-* What is a ref?

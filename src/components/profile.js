@@ -7,6 +7,7 @@ import LabelInputItem from "./labelInputItem";
 import LabelOptionItem from "./labelOptionItem";
 import FormMessage from "./formMessage";
 
+// These options are out here to prevent recreating the array.
 const options = [
   {
     value: "unspecified",
@@ -23,6 +24,9 @@ const options = [
 ];
 
 class Profile extends Component {
+  /**
+   * Validity of each input starts off as true to prevent initial error
+   */
   state = {
     name: this.props.profile.name,
     phone: this.props.profile.phone,
@@ -36,6 +40,12 @@ class Profile extends Component {
     emptyFields: []
   };
 
+  /**
+   * This function runs when the submit button is clicked.
+   * It checks the state to ensure that none of the inputs are empty strings.
+   * If none are empty strings then form is valid
+   *  else, form is invalid
+   */
   handleFormSubmit = event => {
     event.preventDefault();
 
@@ -67,6 +77,10 @@ class Profile extends Component {
     });
   };
 
+  /**
+   * General handler for all inputs
+   * This relies on each components name being the same as the state property
+   */
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -74,7 +88,6 @@ class Profile extends Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <div className="app">
         <h1>{this.props.name}</h1>
@@ -117,6 +130,10 @@ class Profile extends Component {
             <input type="submit" value="Save" />
           </div>
 
+          {/* 
+            Form validity starts off as null so neither success 
+            nor unsuccessful message shows up
+          */}
           {this.state.formIsValid !== null && (
             <FormMessage
               isValid={this.state.formIsValid}
