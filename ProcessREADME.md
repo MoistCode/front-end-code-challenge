@@ -24,3 +24,4 @@
       * **Redux**: Can't beat a single source of truth to prevent any syncing issues when the app gets bigger
       * **Redux-Act**: Takes away some of the repetitiveness of Redux when creating and handling actions
 * Another route I would also like I take is to possibly let the HTML elements handle themselves instead of validating through JavaScript via the `required` attribute for the `<input>` and `<select>` elements
+* I prefer using functional components when a component isn't stateful. I would like to add `React.memo()` as it is a way to make our functional components a pure components without turning them into classes to optimize renders

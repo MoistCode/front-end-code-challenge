@@ -4,11 +4,15 @@ import "./index.css";
 import New from "./components/new";
 import Edit from "./components/edit";
 import * as serviceWorker from "./serviceWorker";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const App = () => (
   <div className="app-container">
-    <New />
-    <Edit />
+    <Provider store={store}>
+      <New />
+      <Edit />
+    </Provider>
   </div>
 );
 
